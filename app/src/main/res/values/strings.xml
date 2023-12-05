@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SaySco</string>
+    <string name="light_bulb">Light bulb and book image</string>
+    <string name="welcome">Welcome to SaySco</string>
+    <string name="welcome_desc">Essay grading is precise and easy. Our essay grading feature has been thoroughly researched and tested to ensure that it is of the highest quality and ready to help you.</string>
+    <string name="start_btn">Get Started</string>
+</resources>
