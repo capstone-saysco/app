@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.saysco.R
 import com.example.saysco.databinding.ActivityLoginBinding
+import com.example.saysco.ui.home.HomeActivity
 import com.example.saysco.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -46,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login(email: String, password: String) {
         showAlert("Email : $email password : $password")
+        startActivity(Intent(this, HomeActivity::class.java))
     }
 
     private fun goToSignUp() {
