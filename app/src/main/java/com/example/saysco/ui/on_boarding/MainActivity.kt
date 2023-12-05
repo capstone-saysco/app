@@ -22,22 +22,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-//        var splashScreen = installSplashScreen()
-//        splashScreen.apply {
-//            setOnExitAnimationListener {splashScreenView ->
-//                ObjectAnimator.ofFloat(
-//                    splashScreenView.view,
-//                    View.TRANSLATION_Y,
-//                    0f, -splashScreenView.view.height.toFloat()
-//                ).apply {
-//                    interpolator = DecelerateInterpolator()
-//                    duration = 500L
-//                    doOnEnd { splashScreenView.remove() }
-//                    start()
-//                }
-//            }
-//        }
-
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
     }
