@@ -16,4 +16,8 @@
     <string name="email_error">Enter the appropriate email</string>
     <string name="not_match">Your email is incorrect or your password is less than 8 characters!</string>
     <string name="empty_ed">Please fill in all input!</string>
+    <string name="title_register">Sign up to SaySco</string>
+    <string name="subtitle_register">"Register now to experience the revolutionary experience of automatically grading essays. "</string>
+    <string name="hint_name">Username</string>
+    <string name="go_to_signin">Already have an account?</string>
 </resources>
