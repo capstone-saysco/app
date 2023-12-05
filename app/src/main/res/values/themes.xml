@@ -3,13 +3,20 @@
     <style name="Base.Theme.SaySco" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:buttonStyle">@style/MyButtonStyle</item>
     </style>
 
     <style name="Theme.SaySco" parent="Base.Theme.SaySco" />
 
+    <style name="MyButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="android:buttonStyle">@style/MyButtonStyle</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.SaySco</item>
     </style>
 </resources>

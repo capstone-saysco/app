@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.MainActivity"
+    tools:context=".ui.on_boarding.MainActivity"
     android:padding="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,9 +48,11 @@
         android:id="@+id/welcome_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="40dp"
+        android:paddingHorizontal="60dp"
         android:paddingVertical="15dp"
         android:text="@string/start_btn"
+        android:textSize="17sp"
+        android:fontFamily="@font/roboto_bold"
         android:backgroundTint="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

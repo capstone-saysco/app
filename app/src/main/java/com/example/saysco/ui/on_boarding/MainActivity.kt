@@ -1,4 +1,4 @@
-package com.example.saysco.ui.home
+package com.example.saysco.ui.on_boarding
 
 import android.content.Intent
 import android.os.Bundle
