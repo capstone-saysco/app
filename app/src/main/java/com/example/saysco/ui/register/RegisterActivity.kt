@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.saysco.R
 import com.example.saysco.databinding.ActivityRegisterBinding
-import com.example.saysco.ui.home.HomeActivity
 import com.example.saysco.ui.login.LoginActivity
 
 class RegisterActivity : AppCompatActivity() {
@@ -19,6 +18,8 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        supportActionBar?.hide()
 
         goToSignIn()
         setupRegister()
