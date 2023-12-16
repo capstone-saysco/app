@@ -43,4 +43,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="registration_error">Registration failed!</string>
+    <string name="login_error">Login failed!</string>
 </resources>

@@ -2,8 +2,10 @@ package com.example.saysco.di
 
 import android.content.Context
 import com.example.saysco.data.database.ScoringRoomDatabase
+import com.example.saysco.data.remote.retrofit.ApiConfig
 import com.example.saysco.data.repository.KeyAnswerRepository
 import com.example.saysco.data.repository.QuestionRepository
+import com.example.saysco.data.repository.RemoteRepository
 import com.example.saysco.data.repository.ScoringRepository
 import com.example.saysco.data.repository.StudentAnswerRepository
 import com.example.saysco.utils.AppExecutors
@@ -36,5 +38,10 @@ object Injection {
         val dao = database.studentAnswerDao()
         val appExecutors = AppExecutors()
         return StudentAnswerRepository(context,dao,appExecutors)
+    }
+
+    fun provideRepository(context: Context): RemoteRepository {
+        val apiService = ApiConfig.getApiService()
+        return RemoteRepository.getInstance(apiService)
     }
 }
