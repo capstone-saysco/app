@@ -16,7 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField("String", "BASE_URL", "\"http://192.168.210.203:8080/saysco-api/\"")
+        buildConfigField("String", "BASE_URL", "\"http://192.168.1.8:8080/saysco-api/\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -49,6 +49,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     implementation "androidx.core:core-splashscreen:1.0.1"
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.2"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"

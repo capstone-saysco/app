@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,8 +13,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SaySco"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.addNewEssay.statusResult.StatusResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.addNewEssay.confirmation.ConfirmationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.addNewEssay.studentAnswer.editStudentAnswer.EditStudentAnswerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.addNewEssay.studentAnswer.addStudentAnswer.AddStudentAnswerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.addNewEssay.studentAnswer.listStudentAnswer.ListStudentAnswerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.addNewEssay.AddEssayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.splashscreen.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false"
@@ -29,24 +56,8 @@
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.newscoring.question.add.AddQuestionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.newscoring.question.list.QuestionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.newscoring.NewScoringActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.on_boarding.OnBoardingActivity"
-            android:exported="true"
-            android:theme="@style/Theme.App.SplashScreen" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

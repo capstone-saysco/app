@@ -4,17 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.saysco.data.model.KeyAnswer
-import com.example.saysco.data.model.Question
-import com.example.saysco.data.model.Scoring
+import com.example.saysco.data.model.Essay
 import com.example.saysco.data.model.StudentAnswer
 
-@Database(entities = [Scoring::class, Question::class, KeyAnswer::class, StudentAnswer::class], version = 2)
+@Database(entities = [Essay::class, StudentAnswer::class], version = 3)
 abstract class ScoringRoomDatabase : RoomDatabase() {
 
-    abstract fun scoringDao(): ScoringDao
-    abstract fun questionDao(): QuestionDao
-    abstract fun keyAnswerDao(): KeyAnswerDao
+    abstract fun essayDao(): EssayDao
     abstract fun studentAnswerDao(): StudentAnswerDao
 
     companion object {

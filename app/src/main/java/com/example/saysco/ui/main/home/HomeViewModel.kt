@@ -1,13 +1,13 @@
 package com.example.saysco.ui.main.home
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.saysco.data.repository.ScoringRepository
+import androidx.lifecycle.asLiveData
+import com.example.saysco.data.model.User
+import com.example.saysco.data.repository.UserRepository
 
-class HomeViewModel(private val scoringRepository: ScoringRepository) : ViewModel() {
-    fun getScoring(idUser: String) = scoringRepository.getAllScorings(idUser)
-
-    fun deleteAllScorings(idUser: String) = scoringRepository.deleteAllScorings(idUser)
-
+class HomeViewModel(private val userRepository: UserRepository) : ViewModel() {
+    fun getSession(): LiveData<User> {
+        return userRepository.getSession().asLiveData()
+    }
 }

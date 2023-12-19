@@ -20,12 +20,12 @@ interface StudentAnswerDao {
     @Delete
     fun delete(studentAnswer: StudentAnswer)
 
-    @Query("DELETE FROM StudentAnswer WHERE idQuestion = :idQuestion")
-    fun deleteAllStudentAnswers(idQuestion: String)
+    @Query("DELETE FROM StudentAnswer WHERE idEssay = :idEssay")
+    fun deleteAllStudentAnswers(idEssay: String)
 
-    @Query("SELECT * from studentAnswer WHERE idQuestion = :idQuestion ORDER BY id ASC")
-    fun getAllStudentAnswers(idQuestion: String): LiveData<List<StudentAnswer>>
+    @Query("SELECT * from studentAnswer WHERE idEssay = :idEssay ORDER BY id ASC")
+    fun getAllStudentAnswers(idEssay: String): LiveData<List<StudentAnswer>>
 
-    @Query("SELECT * FROM StudentAnswer WHERE idQuestion = :idQuestion ORDER BY id DESC LIMIT 1")
-    fun getStudentAnswer(idQuestion: String): LiveData<StudentAnswer>
+    @Query("SELECT * FROM StudentAnswer WHERE idEssay = :idEssay ORDER BY id DESC LIMIT 1")
+    fun getStudentAnswer(idEssay: String): LiveData<StudentAnswer>
 }

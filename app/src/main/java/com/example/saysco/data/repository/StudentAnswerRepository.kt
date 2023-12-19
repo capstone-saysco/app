@@ -19,10 +19,10 @@ class StudentAnswerRepository(
         mStudentAnswersDao = db.studentAnswerDao()
     }
 
-    fun getAllStudentAnswers(idQuestion: String): LiveData<List<StudentAnswer>> = mStudentAnswersDao.getAllStudentAnswers(idQuestion)
+    fun getAllStudentAnswers(idEssay: String): LiveData<List<StudentAnswer>> = mStudentAnswersDao.getAllStudentAnswers(idEssay)
 
 
-    fun getStudentAnswer(idQuestion: String): LiveData<StudentAnswer> = mStudentAnswersDao.getStudentAnswer(idQuestion)
+    fun getStudentAnswer(idEssay: String): LiveData<StudentAnswer> = mStudentAnswersDao.getStudentAnswer(idEssay)
 
     fun insert(studentAnswer: StudentAnswer) {
         executorService.diskIO.execute { mStudentAnswersDao.insert(studentAnswer) }
@@ -31,8 +31,8 @@ class StudentAnswerRepository(
     fun delete(studentAnswer: StudentAnswer) {
         executorService.diskIO.execute { mStudentAnswersDao.delete(studentAnswer) }
     }
-    fun deleteAllStudentAnswers(idQuestion: String) {
-        executorService.diskIO.execute { mStudentAnswersDao.deleteAllStudentAnswers(idQuestion) }
+    fun deleteAllStudentAnswers(idEssay: String) {
+        executorService.diskIO.execute { mStudentAnswersDao.deleteAllStudentAnswers(idEssay) }
     }
 
     fun update(studentAnswer: StudentAnswer) {

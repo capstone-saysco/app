@@ -1,9 +1,11 @@
 package com.example.saysco.data.model
 
+import android.os.Parcel
+import android.os.Parcelable
+
 data class User(
-    val idUser: String,
-    val username: String,
+    val name: String,
+    val id: Int,
     val email: String,
     val token: String,
-    val isLogin: Boolean = false
 )

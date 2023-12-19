@@ -13,16 +13,19 @@ data class StudentAnswer (
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
-    @ColumnInfo(name = "idQuestion")
-    var idQuestion: String? = null,
-
-    @ColumnInfo(name = "idStudent")
-    var idStudent: String? = null,
+    @ColumnInfo(name = "idEssay")
+    var idEssay: Int = 0,
 
     @ColumnInfo(name = "studentName")
     var studentName: String? = null,
 
-    @ColumnInfo(name = "studentAnswer")
-    var studentAnswer: String? = null
+    @ColumnInfo(name = "studentNumber")
+    var studentNumber: Int = 0,
+
+    @ColumnInfo(name = "answer")
+    var answer: String? = null,
+
+    @ColumnInfo(name = "score")
+    var score: Int = 0
 
 ) : Parcelable

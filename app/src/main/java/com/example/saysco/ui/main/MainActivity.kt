@@ -8,6 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.saysco.R
+import com.example.saysco.data.model.User
 import com.example.saysco.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

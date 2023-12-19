@@ -5,30 +5,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.saysco.data.model.User
+import androidx.fragment.app.viewModels
 import com.example.saysco.databinding.FragmentHomeBinding
-import com.example.saysco.ui.newscoring.NewScoringActivity
+import com.example.saysco.ui.ViewModelFactory
+import com.example.saysco.ui.addNewEssay.AddEssayActivity
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel by viewModels<HomeViewModel> {
+        ViewModelFactory.getInstance(requireActivity())
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        //Dengan data login, sementara belum implementasi login maka menggunakan objek user
-        val user = User(idUser = "a123", username = "Fahns", "ahnafbawedan01@gmail", token = "123", isLogin = true)
-        binding.btnEssayScoring.setOnClickListener{
-            val intent = Intent(context, NewScoringActivity::class.java)
-            intent.putExtra("idUser", user.idUser)
-            intent.putExtra("fromPage", "Home")
-            startActivity(intent)
+        viewModel.getSession().observe(viewLifecycleOwner) { user ->
+            if (user.token != null) {
+                binding.username.text = user.name
+                binding.btnEssayScoring.setOnClickListener {
+                    val intent = Intent(requireContext(), AddEssayActivity::class.java)
+                    intent.putExtra("idUser", user.id.toString())
+                    intent.putExtra("fromPage", "Home")
+                    startActivity(intent)
+                }
+            }
         }
+
 
         return root
     }
@@ -37,4 +44,5 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }
