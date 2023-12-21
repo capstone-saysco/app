@@ -1,17 +1,20 @@
 package com.example.saysco.data.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.example.saysco.data.Result
-import com.example.saysco.data.model.User
 import com.example.saysco.data.remote.response.LoginResponse
 import com.example.saysco.data.remote.response.RegisterResponse
+import com.example.saysco.data.remote.retrofit.ApiConfig
 import com.example.saysco.data.remote.retrofit.ApiService
 
-class RemoteRepository private constructor(
+class AuthRepository private constructor(
     private val apiService: ApiService
 ) {
+    private val _token = MutableLiveData<String>()
+    val token: LiveData<String> = _token
+
     fun registerUser(
         userName: String,
         userEmail: String,
@@ -19,7 +22,6 @@ class RemoteRepository private constructor(
     ): LiveData<Result<RegisterResponse>> = liveData {
         emit(Result.Loading)
         try {
-            Log.d("repo", "masuk try")
             val response = apiService.register(userName, userEmail, userPassword)
             emit(Result.Success(response))
         } catch (e: Exception) {
@@ -35,25 +37,25 @@ class RemoteRepository private constructor(
         try {
             val response = apiService.login(userEmail, userPassword)
             emit(Result.Success(response))
-//            userPreference.storeSession(
-//                User(
-//                    response.loginResult.name,
-//                    response.loginResult.token
-//                )
-//            )
+            _token.value = response.token
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
 
+    suspend fun logout() {
+        val apiServiceWithToken = ApiConfig.getApiService(token.value.toString())
+        apiServiceWithToken.logout()
+    }
+
     companion object {
         @Volatile
-        private var instance: RemoteRepository? = null
+        private var instance: AuthRepository? = null
         fun getInstance(
             apiService: ApiService
-        ): RemoteRepository =
+        ): AuthRepository =
             instance ?: synchronized(this) {
-                instance ?: RemoteRepository(apiService)
+                instance ?: AuthRepository(apiService)
             }.also { instance = it }
     }
 }
