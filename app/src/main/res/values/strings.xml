@@ -59,4 +59,12 @@
     <string name="saved_successfully">Saved Successfully!</string>
     <string name="message_result">Congratulations your essay was successfully saved, to see your essay results can be accessed by clicking the button below.</string>
     <string name="back_to_home">Back to Home</string>
+    <string name="avatar">User\'s avatar</string>
+    <string name="default_uname">John Doe</string>
+    <string name="default_email">john.doe@example.com</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="logout">Logout</string>
+    <string name="answer">"Answers : "</string>
+    <string name="delete">Delete</string>
+    <string name="retry">Retry</string>
 </resources>
