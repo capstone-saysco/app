@@ -1,5 +1,6 @@
 package com.example.saysco.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
@@ -8,12 +9,12 @@ import com.example.saysco.data.remote.response.LoginResponse
 import com.example.saysco.data.remote.response.RegisterResponse
 import com.example.saysco.data.remote.retrofit.ApiConfig
 import com.example.saysco.data.remote.retrofit.ApiService
+import com.example.saysco.databinding.FragmentExploreBinding
 
 class AuthRepository private constructor(
+    private val userRepository: UserRepository,
     private val apiService: ApiService
 ) {
-    private val _token = MutableLiveData<String>()
-    val token: LiveData<String> = _token
 
     fun registerUser(
         userName: String,
@@ -37,14 +38,13 @@ class AuthRepository private constructor(
         try {
             val response = apiService.login(userEmail, userPassword)
             emit(Result.Success(response))
-            _token.value = response.token
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
     }
 
-    suspend fun logout() {
-        val apiServiceWithToken = ApiConfig.getApiService(token.value.toString())
+    suspend fun logout(token: String) {
+        val apiServiceWithToken = ApiConfig.getApiService(token)
         apiServiceWithToken.logout()
     }
 
@@ -52,10 +52,11 @@ class AuthRepository private constructor(
         @Volatile
         private var instance: AuthRepository? = null
         fun getInstance(
+            userRepository: UserRepository,
             apiService: ApiService
         ): AuthRepository =
             instance ?: synchronized(this) {
-                instance ?: AuthRepository(apiService)
+                instance ?: AuthRepository(userRepository, apiService)
             }.also { instance = it }
     }
 }

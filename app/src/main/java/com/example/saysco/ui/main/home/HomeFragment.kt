@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.saysco.data.remote.retrofit.ApiConfig
+import com.example.saysco.data.repository.AuthRepository
 import com.example.saysco.databinding.FragmentHomeBinding
 import com.example.saysco.ui.ViewModelFactory
 import com.example.saysco.ui.addNewEssay.AddEssayActivity
@@ -24,6 +27,8 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        (this.requireActivity() as AppCompatActivity).supportActionBar?.hide()
+
         viewModel.getSession().observe(viewLifecycleOwner) { user ->
             if (user.token != null) {
                 binding.username.text = user.name
@@ -35,7 +40,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
 
         return root
     }

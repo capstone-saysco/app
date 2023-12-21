@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.saysco.databinding.FragmentProfileBinding
+import com.example.saysco.ui.ViewModelFactory
+
 
 class ProfileFragment : Fragment() {
 
@@ -17,22 +19,34 @@ class ProfileFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private val viewModel by viewModels<ProfileViewModel> {
+        ViewModelFactory.getInstance(requireActivity())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val profileViewModel =
-            ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        profileViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        (this.requireActivity() as AppCompatActivity).supportActionBar?.show()
+        (this.requireActivity() as AppCompatActivity).supportActionBar?.title = "Profile"
+
+        viewModel.getUser().observe(this.requireActivity()) {
+            with(binding) {
+                textName.text = it.name
+                textEmail.text = it.email
+            }
         }
-        return root
+
+        binding.cvLogout.setOnClickListener {
+            viewModel.logout()
+            requireActivity().finish()
+        }
+
+        return binding.root
     }
 
     override fun onDestroyView() {
