@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.saysco.databinding.ActivitySplashBinding
 import com.example.saysco.ui.ViewModelFactory
 import com.example.saysco.ui.main.MainActivity
@@ -20,6 +21,8 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
