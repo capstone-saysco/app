@@ -12,21 +12,28 @@ import com.example.saysco.data.remote.response.EssayItem
 import com.example.saysco.databinding.ItemEssayBinding
 import com.example.saysco.databinding.ItemStudentAnswerBinding
 
-class EssayAdapter : ListAdapter<EssayItem, EssayAdapter.ListViewHolder>(DIFF_CALLBACK) {
-    override fun onBindViewHolder(holder: EssayAdapter.ListViewHolder, position: Int) {
-        val essays = getItem(position)
-        if (essays != null) {
-            holder.bind(essays)
+class EssayAdapter : ListAdapter<EssayItem, EssayAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemEssayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val essay = getItem(position)
+        if (essay != null) {
+            holder.bind(essay)
+            holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(essay) }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EssayAdapter.ListViewHolder {
-        val binding = ItemEssayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ListViewHolder(binding)
-    }
-
-    inner class ListViewHolder(private val binding: ItemEssayBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemEssayBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(essay: EssayItem) {
             with(binding){
@@ -34,6 +41,10 @@ class EssayAdapter : ListAdapter<EssayItem, EssayAdapter.ListViewHolder>(DIFF_CA
                 tvEssayKeyAnswer.text = essay.keyAnswer
             }
         }
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClicked(essay: EssayItem)
     }
 
     companion object {

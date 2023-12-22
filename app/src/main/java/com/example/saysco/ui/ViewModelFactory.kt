@@ -13,6 +13,7 @@ import com.example.saysco.ui.addNewEssay.confirmation.ConfirmationViewModel
 import com.example.saysco.ui.addNewEssay.studentAnswer.addStudentAnswer.AddStudentAnswerViewModel
 import com.example.saysco.ui.addNewEssay.studentAnswer.editStudentAnswer.EditStudentAnswerViewModel
 import com.example.saysco.ui.addNewEssay.studentAnswer.listStudentAnswer.ListStudentAnswerViewModel
+import com.example.saysco.ui.listAnwers.ListAnswerViewModel
 import com.example.saysco.ui.login.LoginViewModel
 import com.example.saysco.ui.main.explore.ExploreViewModel
 import com.example.saysco.ui.main.home.HomeViewModel
@@ -50,7 +51,9 @@ class ViewModelFactory private constructor(
         } else if (modelClass.isAssignableFrom(ProfileViewModel::class.java)) {
             return ProfileViewModel(userRepository, authRepository) as T
         } else if (modelClass.isAssignableFrom(ExploreViewModel::class.java)) {
-            return ExploreViewModel(essayRepository, studentAnswerRepository, userRepository) as T
+            return ExploreViewModel(essayRepository, userRepository) as T
+        } else if (modelClass.isAssignableFrom(ListAnswerViewModel::class.java)) {
+            return ListAnswerViewModel(studentAnswerRepository, userRepository) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
