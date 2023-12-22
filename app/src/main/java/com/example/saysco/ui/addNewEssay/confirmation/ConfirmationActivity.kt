@@ -3,6 +3,8 @@ package com.example.saysco.ui.addNewEssay.confirmation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -141,9 +143,6 @@ class ConfirmationActivity : AppCompatActivity() {
                                         showLoading(false)
                                         deleteEssay(essay)
                                         showAlert(getString(R.string.notif_saved))
-                                        val intent = Intent(this, StatusResultActivity::class.java)
-                                        startActivity(intent)
-                                        finish()
                                     }
                                 }
                             }
@@ -152,6 +151,11 @@ class ConfirmationActivity : AppCompatActivity() {
                 }
             }
         }
+        Handler().postDelayed({
+            val intent = Intent(this, StatusResultActivity::class.java)
+            startActivity(intent)
+//        finish()
+        }, 2000)
     }
 
     private fun predictScore(token: String, studentAnswer: StudentAnswer) {
@@ -173,9 +177,11 @@ class ConfirmationActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoading(false)
                         studentAnswer.score = it.data.data.scoreResult
-                        updateStudentAnswer(token, studentAnswer)
                     }
                 }
+                Handler().postDelayed({
+                    updateStudentAnswer(token, studentAnswer)
+                }, 2000)
             }
         }
     }
@@ -194,6 +200,7 @@ class ConfirmationActivity : AppCompatActivity() {
 
                     is Result.Success -> {
                         showLoading(false)
+                        Log.d("UPDATE NOTIFICATION", "Successfully update with new score : ${it.data.updatedData.score}")
                     }
                 }
             }
