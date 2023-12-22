@@ -66,7 +66,7 @@ class ListStudentAnswerActivity : AppCompatActivity() {
                 adapter.setOnItemClickCallback(object : StudentAnswerEditAdapter.OnItemClickCallback {
                     override fun onItemClicked(studentAnswer: StudentAnswer) {
                         val intentToEdit = Intent(this@ListStudentAnswerActivity, EditStudentAnswerActivity::class.java)
-                        intentToEdit.putExtra("Answer", studentAnswer)
+                        intentToEdit.putExtra("studentAnswer", studentAnswer)
                         intentToEdit.putExtra("userEssay", essay)
                         startActivity(intentToEdit)
                     }

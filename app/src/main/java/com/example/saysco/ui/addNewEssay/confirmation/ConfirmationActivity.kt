@@ -18,6 +18,7 @@ import com.example.saysco.ui.adapter.StudentAnswerAdapter
 import com.example.saysco.ui.adapter.StudentAnswerEditAdapter
 import com.example.saysco.ui.addNewEssay.statusResult.StatusResultActivity
 import com.example.saysco.ui.addNewEssay.studentAnswer.editStudentAnswer.EditStudentAnswerActivity
+import com.example.saysco.ui.addNewEssay.studentAnswer.listStudentAnswer.ListStudentAnswerActivity
 import com.google.android.material.snackbar.Snackbar
 
 class ConfirmationActivity : AppCompatActivity() {
@@ -95,6 +96,7 @@ class ConfirmationActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoading(false)
 //                        showAlert(getString(R.string.login_success))
+                        //Update ID Essay
                         val essayId = it.data.data.id.toString()
                         sendStudentAnswers(token,essayIdlocal,essayId, essay)
                     }
@@ -127,10 +129,17 @@ class ConfirmationActivity : AppCompatActivity() {
 
                                 is Result.Success -> {
                                     successfulResponses++
+
+                                    //Ambil ID Student Answer
+                                    val studentAnswerId = it.data.data.id
+
+                                    student.id = studentAnswerId
+                                    //Predict Score Student Answer
+                                    predictScore(token, student)
+
                                     if (successfulResponses == studentAnswer.size) {
                                         showLoading(false)
-                                        val userId = essay.userId.toString()
-                                        deleteEssay(essay, userId)
+                                        deleteEssay(essay)
                                         showAlert(getString(R.string.notif_saved))
                                         val intent = Intent(this, StatusResultActivity::class.java)
                                         startActivity(intent)
@@ -144,7 +153,54 @@ class ConfirmationActivity : AppCompatActivity() {
             }
         }
     }
-    private fun deleteEssay(essay: Essay, idUser: String) {
+
+    private fun predictScore(token: String, studentAnswer: StudentAnswer) {
+        val answerId = studentAnswer.id.toString()
+        val answer = studentAnswer.answer.toString()
+
+        viewModel.predictStudentAnswer(token, answerId, answer).observe(this) {
+            if (it != null) {
+                when (it) {
+                    Result.Loading -> {
+                        showLoading(true)
+                    }
+
+                    is Result.Error -> {
+                        showLoading(false)
+                        showAlert(getString(R.string.login_error))
+                    }
+
+                    is Result.Success -> {
+                        showLoading(false)
+                        studentAnswer.score = it.data.data.scoreResult
+                        updateStudentAnswer(token, studentAnswer)
+                    }
+                }
+            }
+        }
+    }
+    private fun updateStudentAnswer(token: String, studentAnswer: StudentAnswer){
+        viewModel.updateStudentAnswer(token, studentAnswer).observe(this){
+            if (it != null) {
+                when (it) {
+                    Result.Loading -> {
+                        showLoading(true)
+                    }
+
+                    is Result.Error -> {
+                        showLoading(false)
+                        showAlert(getString(R.string.login_error))
+                    }
+
+                    is Result.Success -> {
+                        showLoading(false)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun deleteEssay(essay: Essay) {
         val idEssay = essay.id.toString()
         deleteAnswerKey(idEssay)
         viewModel.deleteEssay(essay)

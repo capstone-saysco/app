@@ -1,5 +1,6 @@
 package com.example.saysco.ui.main.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.saysco.databinding.FragmentProfileBinding
 import com.example.saysco.ui.ViewModelFactory
+import com.example.saysco.ui.login.LoginActivity
 
 
 class ProfileFragment : Fragment() {
@@ -43,6 +45,8 @@ class ProfileFragment : Fragment() {
 
         binding.cvLogout.setOnClickListener {
             viewModel.logout()
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            startActivity(intent)
             requireActivity().finish()
         }
 

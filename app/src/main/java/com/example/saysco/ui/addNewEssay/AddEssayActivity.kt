@@ -99,16 +99,16 @@ class AddEssayActivity : AppCompatActivity() {
     }
 
     private fun updateEssay(essay: Essay) {
-        with(binding){
-            val question = essay.question
-            val keyAnswer = essay.keyAnswer
-            edQuestionessay.setText(question)
-            edEdAnswerkeyessay.setText(keyAnswer)
-            saveButton.setText(getString(R.string.btn_update))
-            saveButton.setOnClickListener {
-                viewModel.updateEssay(essay)
-                toStudentAnswerPage(essay)
-            }
+        val question = essay.question
+        val keyAnswer = essay.keyAnswer
+        binding.edQuestionessay.setText(question)
+        binding.edEdAnswerkeyessay.setText(keyAnswer)
+        binding.saveButton.setText(getString(R.string.btn_update))
+        binding.saveButton.setOnClickListener {
+            essay.question = binding.edQuestionessay.text.toString()
+            essay.keyAnswer = binding.edEdAnswerkeyessay.text.toString()
+            viewModel.updateEssay(essay)
+            toStudentAnswerPage(essay)
         }
     }
 

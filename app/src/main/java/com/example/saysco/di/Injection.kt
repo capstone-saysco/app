@@ -5,8 +5,8 @@ import com.example.saysco.data.database.ScoringRoomDatabase
 import com.example.saysco.data.preference.UserPreference
 import com.example.saysco.data.preference.dataStore
 import com.example.saysco.data.remote.retrofit.ApiConfig
+import com.example.saysco.data.repository.AuthRepository
 import com.example.saysco.data.repository.EssayRepository
-import com.example.saysco.data.repository.RemoteRepository
 import com.example.saysco.data.repository.StudentAnswerRepository
 import com.example.saysco.data.repository.UserRepository
 import com.example.saysco.utils.AppExecutors
@@ -29,8 +29,8 @@ object Injection {
         val pref = UserPreference.getInstance(context.dataStore)
         return UserRepository.getInstance(pref)
     }
-    fun provideRepository(context: Context): RemoteRepository {
+    fun provideRepository(context: Context): AuthRepository {
         val apiService = ApiConfig.getApiService()
-        return RemoteRepository.getInstance(apiService)
+        return AuthRepository.getInstance(apiService)
     }
 }

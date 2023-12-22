@@ -15,7 +15,6 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
-
     suspend fun saveSession(user: User) {
         dataStore.edit { preferences ->
             preferences[NAME_KEY] = user.name

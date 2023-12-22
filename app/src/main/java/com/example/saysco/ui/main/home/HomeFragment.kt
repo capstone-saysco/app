@@ -13,6 +13,7 @@ import com.example.saysco.data.repository.AuthRepository
 import com.example.saysco.databinding.FragmentHomeBinding
 import com.example.saysco.ui.ViewModelFactory
 import com.example.saysco.ui.addNewEssay.AddEssayActivity
+import com.example.saysco.ui.login.LoginActivity
 
 class HomeFragment : Fragment() {
 
@@ -38,6 +39,9 @@ class HomeFragment : Fragment() {
                     intent.putExtra("fromPage", "Home")
                     startActivity(intent)
                 }
+            } else {
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
             }
         }
 

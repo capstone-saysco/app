@@ -16,7 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField("String", "BASE_URL", "\"http://192.168.1.8:8080/saysco-api/\"")
+        buildConfigField("String", "BASE_URL", "\"https://spartan-trilogy-406503.et.r.appspot.com/saysco-api/\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

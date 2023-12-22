@@ -11,6 +11,8 @@ import com.example.saysco.data.model.StudentAnswer
 import com.example.saysco.data.model.User
 import com.example.saysco.data.remote.response.InputAnswerResponse
 import com.example.saysco.data.remote.response.InputEssayResponse
+import com.example.saysco.data.remote.response.PredictScoreResponse
+import com.example.saysco.data.remote.response.UpdateAnswerResponse
 import com.example.saysco.data.remote.response.UserResponse
 import com.example.saysco.data.remote.retrofit.ApiConfig
 import com.example.saysco.data.repository.EssayRepository
@@ -80,4 +82,51 @@ class ConfirmationViewModel (
             emit(Result.Error(e.message.toString()))
         }
     }
+
+    fun predictStudentAnswer (
+        token: String,
+        answerId:String,
+        answer:String,
+    ): LiveData<Result<PredictScoreResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val apiService = ApiConfig.getApiServicePredict(token)
+            val response = apiService.predictScore(answerId, answer)
+            // Log response here
+            Log.d("API_RESPONSE_PREDICT_STUDENT_ANSWER", response.toString())
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            // Log exception here
+            Log.e("API_RESPONSE_PREDICT_STUDENT_ANSWER", e.message, e)
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun updateStudentAnswer (
+        token: String,
+        studentAnswer: StudentAnswer
+    ): LiveData<Result<UpdateAnswerResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val apiService = ApiConfig.getApiService(token)
+            val response = apiService.updateAnswer(
+                studentAnswer.id.toString(),  // Gunakan ID Student Answer sebagai answerId
+                studentAnswer.studentName.toString(),
+                studentAnswer.studentNumber.toString(),
+                studentAnswer.answer.toString(),
+                studentAnswer.score.toString()
+            )
+            // Log response here
+            Log.d("API_RESPONSE_UPDATE_STUDENT_ANSWER", response.toString())
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            // Log exception here
+            Log.e("API_EXCEPTION_UPDATE_STUDENT_ANSWER", e.message, e)
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+    fun updateStudentAnswerLocal(studentAnswer: StudentAnswer) {
+        studentAnswerRepository.update(studentAnswer)
+    }
+
 }

@@ -12,7 +12,6 @@ import com.example.saysco.data.remote.retrofit.ApiService
 import com.example.saysco.databinding.FragmentExploreBinding
 
 class AuthRepository private constructor(
-    private val userRepository: UserRepository,
     private val apiService: ApiService
 ) {
 
@@ -29,7 +28,6 @@ class AuthRepository private constructor(
             emit(Result.Error(e.message.toString()))
         }
     }
-
     fun loginUser(
         userEmail: String,
         userPassword: String
@@ -52,11 +50,10 @@ class AuthRepository private constructor(
         @Volatile
         private var instance: AuthRepository? = null
         fun getInstance(
-            userRepository: UserRepository,
             apiService: ApiService
         ): AuthRepository =
             instance ?: synchronized(this) {
-                instance ?: AuthRepository(userRepository, apiService)
+                instance ?: AuthRepository(apiService)
             }.also { instance = it }
     }
 }
