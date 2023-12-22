@@ -10,13 +10,19 @@ import com.example.saysco.data.repository.EssayRepository
 import com.example.saysco.data.repository.StudentAnswerRepository
 import com.example.saysco.data.repository.UserRepository
 import com.example.saysco.utils.AppExecutors
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 object Injection {
     fun provideEssayRepository(context: Context): EssayRepository {
         val database = ScoringRoomDatabase.getInstance(context)
         val dao = database.essayDao()
         val appExecutors = AppExecutors()
-        return EssayRepository(context,dao,appExecutors)
+        val pref = UserPreference.getInstance(context.dataStore)
+        val user = runBlocking { pref.getSession().first() }
+        val token = user.token
+        val apiService = ApiConfig.getApiService(token)
+        return EssayRepository(context,dao,appExecutors,apiService)
     }
 
     fun provideStudentAnswerRepository(context: Context): StudentAnswerRepository {

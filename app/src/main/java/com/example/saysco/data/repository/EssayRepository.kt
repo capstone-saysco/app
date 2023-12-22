@@ -5,13 +5,17 @@ import androidx.lifecycle.LiveData
 import com.example.saysco.data.database.EssayDao
 import com.example.saysco.data.model.Essay
 import com.example.saysco.data.database.ScoringRoomDatabase
+import com.example.saysco.data.remote.response.AllEssayResponse
+import com.example.saysco.data.remote.retrofit.ApiConfig
+import com.example.saysco.data.remote.retrofit.ApiService
 import com.example.saysco.utils.AppExecutors
 
 
 class EssayRepository(
     context: Context,
     private var mEssaysDao: EssayDao,
-    private var executorService: AppExecutors
+    private var executorService: AppExecutors,
+    private val apiService: ApiService
 ) {
 
     init {
@@ -19,7 +23,7 @@ class EssayRepository(
         mEssaysDao = db.essayDao()
     }
 
-    fun getAllEssays(userId: String): LiveData<List<Essay>> = mEssaysDao.getAllEssays(userId)
+    suspend fun getAllEssays(userId: String): LiveData<List<Essay>> = mEssaysDao.getAllEssays(userId)
 
     fun getLatestEssay(userId: String): LiveData<Essay> = mEssaysDao.getLatestEssay(userId)
 
@@ -36,6 +40,11 @@ class EssayRepository(
 
     fun update(essay: Essay) {
         executorService.diskIO.execute { mEssaysDao.update(essay) }
+    }
+
+    suspend fun getAllEssay(token: String) : AllEssayResponse {
+        val apiService = ApiConfig.getApiService(token)
+        return apiService.getAllEssays()
     }
 
 }

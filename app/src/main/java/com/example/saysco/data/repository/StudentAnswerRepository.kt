@@ -5,13 +5,17 @@ import androidx.lifecycle.LiveData
 import com.example.saysco.data.database.StudentAnswerDao
 import com.example.saysco.data.model.StudentAnswer
 import com.example.saysco.data.database.ScoringRoomDatabase
+import com.example.saysco.data.remote.response.AllAnswersResponse
+import com.example.saysco.data.remote.response.AllEssayResponse
+import com.example.saysco.data.remote.retrofit.ApiConfig
+import com.example.saysco.data.remote.retrofit.ApiService
 import com.example.saysco.utils.AppExecutors
 
 
 class StudentAnswerRepository(
     context: Context,
     private var mStudentAnswersDao: StudentAnswerDao,
-    private var executorService: AppExecutors
+    private var executorService: AppExecutors,
 ) {
 
     init {
@@ -37,6 +41,11 @@ class StudentAnswerRepository(
 
     fun update(studentAnswer: StudentAnswer) {
         executorService.diskIO.execute { mStudentAnswersDao.update(studentAnswer) }
+    }
+
+    suspend fun getAllAnswers(token:String, answerId: String): AllAnswersResponse {
+        val apiService = ApiConfig.getApiService(token)
+        return apiService.getAnswer(answerId)
     }
 
 }

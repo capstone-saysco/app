@@ -1,5 +1,6 @@
 package com.example.saysco.data.remote.retrofit
 
+import com.example.saysco.data.remote.response.AllAnswersResponse
 import com.example.saysco.data.remote.response.AllEssayResponse
 import com.example.saysco.data.remote.response.InputAnswerResponse
 import com.example.saysco.data.remote.response.InputEssayResponse
@@ -77,5 +78,9 @@ interface ApiService {
     @GET("essay")
     suspend fun getAllEssays(): AllEssayResponse
 
-
+    @FormUrlEncoded
+    @GET("essay/answer/{answer_id}")
+    suspend fun getAnswer(
+        @Path("answer_id") id: String,
+    ): AllAnswersResponse
 }
