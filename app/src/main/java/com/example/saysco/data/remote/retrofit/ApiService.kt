@@ -78,7 +78,7 @@ interface ApiService {
     @GET("essay")
     suspend fun getAllEssays(): AllEssayResponse
 
-    @FormUrlEncoded
+//    @FormUrlEncoded
     @GET("essay/answer/{answer_id}")
     suspend fun getAnswer(
         @Path("answer_id") id: String,

@@ -1,5 +1,6 @@
 package com.example.saysco.ui.listAnwers
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,7 @@ class ListAnswerViewModel(private val studentAnswerRepository: StudentAnswerRepo
             _answers.value = Result.Loading
             try {
                 val response = studentAnswerRepository.getAllAnswers(token,essayId)
+                Log.d("ViewModel", "response: ${response.data}")
                 _answers.value = Result.Success(response)
             } catch (e: Exception) {
                 _answers.value = Result.Error(e.message.toString())

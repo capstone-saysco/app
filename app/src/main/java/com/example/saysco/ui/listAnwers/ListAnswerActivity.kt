@@ -3,6 +3,7 @@ package com.example.saysco.ui.listAnwers
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,26 +52,31 @@ class ListAnswerActivity : AppCompatActivity() {
         binding.tvAnswer.text = essay.keyAnswer
 
         viewModel.getSession().observe(this) { user ->
+            Log.d("List Answer", "ambil token ${user.token}")
             if (user.token != null) {
+                Log.d("List Answer", "Token tidak kosong")
                 val essayId = essay.id
                 setupRecyclerView()
 
+                viewModel.loadAnswers(user.token, essayId.toString())
+
                 viewModel.answers.observe(this) { result ->
+                    Log.d("List Answer", "Observe Answer")
                     when (result) {
                         is Result.Loading -> showLoading(true)
                         is Result.Success -> {
                             showLoading(false)
+                            Log.d("List Answer", "Answer : ${result.data.data}")
                             val answers = result.data.data.map { it.toStudentAnswer() }
                             updateRecyclerView(answers)
                         }
                         is Result.Error -> {
                             showLoading(false)
+                            Log.d("List Answer", "Answer : ${result.error}")
                             showAlert("Error loading answers")
                         }
                     }
                 }
-
-                viewModel.loadAnswers(user.token, essayId.toString())
 
             } else {
                 val intent = Intent(this@ListAnswerActivity, LoginActivity::class.java)
